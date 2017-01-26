@@ -52,7 +52,7 @@ namespace Slack.Webhooks.Core
 
 		public SlackMessage Clone(string newChannel = null)
 		{
-			return new SlackMessage()
+			return new SlackMessage
 			{
 				Attachments = Attachments,
 				Text = Text,

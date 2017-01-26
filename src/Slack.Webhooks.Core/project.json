@@ -1,10 +1,12 @@
 ﻿{
-  "version": "1.0.0-*",
+  "title": "Slack.Webhooks.Core",
+  "description": "RestFull Asp.net Standard",
+  "version": "1.0.1-*",
 
   "dependencies": {
     "NETStandard.Library": "1.6.1",
     "RestSharp.NetCore": "105.2.4-rc4-24214-01",
-    "ServiceStack.Text": "4.5.4"
+    "ServiceStack.Text.Core": "1.0.32"
   },
 
   "frameworks": {

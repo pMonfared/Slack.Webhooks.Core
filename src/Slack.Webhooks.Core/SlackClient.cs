@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Threading.Tasks;
 using RestSharp;
 using ServiceStack;
 using ServiceStack.Text;
-
-
+using RestSharp.Extensions;
 
 namespace Slack.Webhooks.Core
 {
@@ -40,6 +40,7 @@ namespace Slack.Webhooks.Core
         {
             
             var assembly = typeof(JsConfig).GetTypeInfo().Assembly;
+            
             var jsConfig = assembly.GetType("ServiceStack.Text.JsConfig");
             var conventionEnum = assembly.GetType("ServiceStack.Text.JsonPropertyConvention") ??
                            assembly.GetType("ServiceStack.Text.PropertyConvention");
@@ -67,7 +68,7 @@ namespace Slack.Webhooks.Core
                     var response = _restClient.Execute(request);
                     return response.StatusCode == HttpStatusCode.OK && response.Content == POST_SUCCESS;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     return false;
                 }
@@ -81,7 +82,7 @@ namespace Slack.Webhooks.Core
                     .Select(Post).All(r => r);
         }
 
-#if NET40
+
         public IEnumerable<Task<IRestResponse>> PostToChannelsAsync(SlackMessage message, IEnumerable<string> channels)
         {
             return channels.DefaultIfEmpty(message.Channel)
@@ -125,6 +126,5 @@ namespace Slack.Webhooks.Core
             }
             return taskCompletionSource.Task;
         }
-#endif
     }
 }
